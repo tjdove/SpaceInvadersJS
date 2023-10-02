@@ -3,7 +3,9 @@ const canvas = document.querySelector("canvas");
 const c = canvas.getContext("2d");
 
 // Create an Image object for each sprite
-// const playerSprite = new Image();
+const playerSprite = document.getElementById("player-sprite");
+const invaderSprite = document.getElementById("invader-sprite");
+
 // sprite1.src = "sprite1.png";
 // const invaderSprite = new Image();
 // sprite2.src = "sprite2.png";
@@ -15,16 +17,18 @@ const gravity = 0.2;
 c.fillRect(0, 0, canvas.width, canvas.height);
 
 class Sprite {
-  constructor({ pos, vel, width, height }) {
+  constructor({ pos, vel, width, height, sprite }) {
     this.pos = pos;
     this.vel = vel;
     this.width = width;
     this.height = height;
+    this.sprite = sprite;
   }
 
   draw() {
     c.fillStyle = "red";
-    c.fillRect(this.pos.x, this.pos.y, this.width, this.height);
+    //c.fillRect(this.pos.x, this.pos.y, this.width, this.height);
+    c.drawImage(this.sprite, this.pos.x, this.pos.y);
   }
 
   update() {
@@ -44,15 +48,17 @@ class Sprite {
 const player = new Sprite({
   pos: { x: 0, y: 0 },
   vel: { x: 0, y: 0 },
-  width: 50,
-  height: 100,
+  width: 51,
+  height: 37,
+  sprite: playerSprite,
 });
 
 const enemy = new Sprite({
   pos: { x: 300, y: 300 },
   vel: { x: 0, y: 0 },
-  width: 100,
-  height: 50,
+  width: 59,
+  height: 33,
+  sprite: invaderSprite,
 });
 
 const keys = {
@@ -71,7 +77,7 @@ let lastKey;
 
 function animate() {
   window.requestAnimationFrame(animate);
-  c.fillStyle = "black";
+  c.fillStyle = "white";
   c.fillRect(0, 0, canvas.width, canvas.height);
   //c.clearRect(0, 0, canvas.width, canvas.height);
   player.update();
