@@ -1,49 +1,18 @@
+import { Sprite } from "./Sprite.js";
+
 const canvas = document.querySelector("canvas");
 
-const c = canvas.getContext("2d");
+const context = canvas.getContext("2d");
 
 // Create an Image object for each sprite
 const playerSprite = document.getElementById("player-sprite");
 const invaderSprite = document.getElementById("invader-sprite");
 
-// sprite1.src = "sprite1.png";
-// const invaderSprite = new Image();
-// sprite2.src = "sprite2.png";
-
 canvas.width = 1024;
 canvas.height = 576;
-const gravity = 0.2;
+//const gravity = 0.2;
 
-c.fillRect(0, 0, canvas.width, canvas.height);
-
-class Sprite {
-  constructor({ pos, vel, width, height, sprite }) {
-    this.pos = pos;
-    this.vel = vel;
-    this.width = width;
-    this.height = height;
-    this.sprite = sprite;
-  }
-
-  draw() {
-    c.fillStyle = "red";
-    //c.fillRect(this.pos.x, this.pos.y, this.width, this.height);
-    c.drawImage(this.sprite, this.pos.x, this.pos.y);
-  }
-
-  update() {
-    this.draw();
-
-    this.pos.x += this.vel.x;
-    this.pos.y += this.vel.y;
-    if (this.pos.y + this.height + this.vel.y >= canvas.height) {
-      this.vel.y = 0;
-    } else {
-      //Only increase veleocity if we aren't on the bottom.
-      this.vel.y += gravity;
-    }
-  }
-}
+context.fillRect(0, 0, canvas.width, canvas.height);
 
 const player = new Sprite({
   pos: { x: 0, y: 0 },
@@ -51,6 +20,7 @@ const player = new Sprite({
   width: 51,
   height: 37,
   sprite: playerSprite,
+  canvas: canvas,
 });
 
 const enemy = new Sprite({
@@ -59,6 +29,7 @@ const enemy = new Sprite({
   width: 59,
   height: 33,
   sprite: invaderSprite,
+  canvas: canvas,
 });
 
 const keys = {
@@ -77,9 +48,8 @@ let lastKey;
 
 function animate() {
   window.requestAnimationFrame(animate);
-  c.fillStyle = "white";
-  c.fillRect(0, 0, canvas.width, canvas.height);
-  //c.clearRect(0, 0, canvas.width, canvas.height);
+  context.fillStyle = "white";
+  context.fillRect(0, 0, canvas.width, canvas.height);
   player.update();
   enemy.update();
 
@@ -90,8 +60,6 @@ function animate() {
   } else if (keys.d.pressed && lastKey === "d") {
     player.vel.x = 1;
   }
-
-  //   console.log("Animation Frame");
 }
 
 //Start the whole game:
