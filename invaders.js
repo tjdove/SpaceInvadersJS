@@ -10,7 +10,6 @@ const invaderSprite = document.getElementById("invader-sprite");
 
 canvas.width = 1024;
 canvas.height = 576;
-//const gravity = 0.2;
 
 context.fillRect(0, 0, canvas.width, canvas.height);
 
@@ -78,7 +77,6 @@ window.addEventListener("keydown", (event) => {
     case "w":
       keys.w.pressed = true;
       break;
-
     case "d":
       keys.d.pressed = true;
       lastKey = "d";
@@ -103,7 +101,7 @@ window.addEventListener("keyup", (event) => {
       keys.a.pressed = false;
       break;
     case "w":
-      player.vel.y = -10;
+      keys.a.pressed = false;
       break;
   }
   console.log(event.key);

@@ -21,6 +21,3 @@ export class Sprite {
     this.pos.y += this.vel.y;
   }
 }
-//export default Sprite;
-// module.exports = Sprite;
-//export default User; // 👈 Export class
